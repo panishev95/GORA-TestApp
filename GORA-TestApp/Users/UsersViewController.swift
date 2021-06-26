@@ -43,27 +43,6 @@ class UsersViewController: UIViewController {
         }
     }
     
-    func getDataFrom(url: URL?) {
-        guard let url = url else {return}
-        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-            guard let data = data else { return }
-            self.parse(json: data)
-        }
-        task.resume()
-    }
-    
-    func parse(json: Data) {
-        let decoder = JSONDecoder()
-        DispatchQueue.global(qos: .background).async { [self] in
-            if let jsonUsers = try? decoder.decode(User.self, from: json) {
-                usersTable = jsonUsers
-                DispatchQueue.main.async {
-                    usersView.tblView.reloadData()
-                }
-            }
-        }
-    }
-    
 }
 
 
