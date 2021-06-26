@@ -1,5 +1,5 @@
 //
-//  UsersModel.swift
+//  UserModel.swift
 //  GORA-TestApp
 //
 //  Created by Andrei Panishev on 24.06.2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WelcomeElement: Codable {
+struct UserModel: Codable {
     let id: Int
     let name, username, email: String
     let address: Address
@@ -28,4 +28,4 @@ struct Company: Codable {
     let name, catchPhrase, bs: String
 }
 
-typealias Welcome = [WelcomeElement]
+typealias User = [UserModel]

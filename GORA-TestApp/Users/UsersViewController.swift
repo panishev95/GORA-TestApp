@@ -11,9 +11,9 @@ class UsersViewController: UIViewController {
     
     let usersView = UsersView()
     
-    var users = ["Gosha", "Petya", "Vasya"]
+    var usersTable : User = []
     
-    let url = URL(string: "https://jsonplaceholder.typicode.com/users")
+    let usersUrl = URL(string: "https://jsonplaceholder.typicode.com/users")
     
     let dataFetcher = DataFetcher()
     
@@ -29,15 +29,41 @@ class UsersViewController: UIViewController {
         usersView.tblView.dataSource = self
         usersView.tblView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
        
-        if let url = url {
-            getUsersListWith(url: url)
+        fetchDataUsing(url: usersUrl)
+    }
+    
+    func fetchDataUsing(url: URL?) {
+        guard let url = url else {return}
+        DispatchQueue.global(qos: .background).async { [self] in
+            let data = self.dataFetcher.getDataFrom(url: url)
+            usersTable = self.dataFetcher.parse(json: data)
+            DispatchQueue.main.async {
+                usersView.tblView.reloadData()
+            }
         }
     }
     
-    func getUsersListWith(url: URL) {
-        dataFetcher.getDataUsing(url: url)
+    func getDataFrom(url: URL?) {
+        guard let url = url else {return}
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else { return }
+            self.parse(json: data)
+        }
+        task.resume()
     }
-
+    
+    func parse(json: Data) {
+        let decoder = JSONDecoder()
+        DispatchQueue.global(qos: .background).async { [self] in
+            if let jsonUsers = try? decoder.decode(User.self, from: json) {
+                usersTable = jsonUsers
+                DispatchQueue.main.async {
+                    usersView.tblView.reloadData()
+                }
+            }
+        }
+    }
+    
 }
 
 
@@ -48,17 +74,18 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return usersTable.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let customCell = usersView.tblView.dequeueReusableCell(withIdentifier: "cell")
         customCell?.accessoryType = .disclosureIndicator
-        customCell?.textLabel?.text = "\(users[indexPath.row])"
+        customCell?.textLabel?.text = "\(usersTable[indexPath.row].name)"
         return customCell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         self.navigationController?.pushViewController(PhotosViewController(), animated: true)
     }
 }

@@ -18,7 +18,7 @@
 		1BE2691E26848B4800144192 /* PhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE2691D26848B4800144192 /* PhotosView.swift */; };
 		1BE2692126848B6200144192 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE2692026848B6200144192 /* PhotosViewController.swift */; };
 		1BE269272684933F00144192 /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE269262684933F00144192 /* DataFetcher.swift */; };
-		1BE2692C268498F900144192 /* UsersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE2692B268498F900144192 /* UsersModel.swift */; };
+		1BE2692C268498F900144192 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE2692B268498F900144192 /* UserModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +35,7 @@
 		1BE2691D26848B4800144192 /* PhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosView.swift; sourceTree = "<group>"; };
 		1BE2692026848B6200144192 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		1BE269262684933F00144192 /* DataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcher.swift; sourceTree = "<group>"; };
-		1BE2692B268498F900144192 /* UsersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersModel.swift; sourceTree = "<group>"; };
+		1BE2692B268498F900144192 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +71,6 @@
 				1BE268FA2683A2CA00144192 /* AppDelegate.swift */,
 				1BE268FC2683A2CA00144192 /* SceneDelegate.swift */,
 				1BE269292684959B00144192 /* Services */,
-				1BE2691B2683A7C900144192 /* NavPanel */,
 				1BE269152683A36200144192 /* Users */,
 				1BE2692326848B6700144192 /* Photos */,
 				1BE269172683A5A400144192 /* Views */,
@@ -86,7 +85,7 @@
 			children = (
 				1BE2690F2683A33700144192 /* UsersViewController.swift */,
 				1BE269122683A35C00144192 /* UsersView.swift */,
-				1BE2692B268498F900144192 /* UsersModel.swift */,
+				1BE2692B268498F900144192 /* UserModel.swift */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -94,6 +93,7 @@
 		1BE269172683A5A400144192 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1BE2691B2683A7C900144192 /* NavPanel */,
 				1BE269002683A2CA00144192 /* Main.storyboard */,
 				1BE269052683A2CB00144192 /* LaunchScreen.storyboard */,
 			);
@@ -203,7 +203,7 @@
 				1BE268FD2683A2CA00144192 /* SceneDelegate.swift in Sources */,
 				1BE2691E26848B4800144192 /* PhotosView.swift in Sources */,
 				1BE269272684933F00144192 /* DataFetcher.swift in Sources */,
-				1BE2692C268498F900144192 /* UsersModel.swift in Sources */,
+				1BE2692C268498F900144192 /* UserModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
