@@ -19,6 +19,7 @@ final class PhotosView: UIView {
     let tblView : UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.separatorStyle = .none
         return tv
     }()
     

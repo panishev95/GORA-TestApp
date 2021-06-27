@@ -36,7 +36,7 @@ class UsersViewController: UIViewController {
         guard let url = url else {return}
         DispatchQueue.global(qos: .background).async { [self] in
             let data = self.dataFetcher.getDataFrom(url: url)
-            usersTable = self.dataFetcher.parse(json: data)
+            usersTable = self.dataFetcher.parseUser(json: data)
             DispatchQueue.main.async {
                 usersView.tblView.reloadData()
             }
@@ -65,6 +65,7 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        self.navigationController?.pushViewController(PhotosViewController(), animated: true)
+        let photosVC = PhotosViewController(uId: usersTable[indexPath.row].id)
+        self.navigationController?.pushViewController(photosVC, animated: true)
     }
 }
