@@ -11,13 +11,9 @@ class PhotosViewController: UIViewController {
     
     let photosView = PhotosView()
     
-    var albumsTable : Albums = []
+    var selectedUserAlbums : Albums = []
     
-    var selectedAlbums : Albums = []
-    
-    var photosTable : PhotosModel = []
-    
-    var selectedPhotos : PhotosModel = []
+    var selectedUserPhotos : PhotosModel = []
     
     var cellData : [PhotosCellModel] = []
     
@@ -28,7 +24,7 @@ class PhotosViewController: UIViewController {
     let dataFetcher = DataFetcher()
     
     var selectedUserId = 0
-    
+        
     convenience init(uId: Int) {
         self.init()
         self.selectedUserId = uId
@@ -48,62 +44,60 @@ class PhotosViewController: UIViewController {
         
         photosView.tblView.delegate = self
         photosView.tblView.dataSource = self
+        photosView.tblView.prefetchDataSource = self
         photosView.tblView.register(PhotosCell.self, forCellReuseIdentifier: "photoCell")
-       
-        fetchDataUsing(url: albumsUrl)
         
+        loadData(using: albumsUrl, andPhotosWith: photosUrl)
     }
     
-    fileprivate func fetchDataUsing(url: URL?) {
-        guard let url = url else {return}
-        DispatchQueue.global(qos: .background).async { [self] in
-            let data = self.dataFetcher.getDataFrom(url: url)
-            albumsTable = self.dataFetcher.parseAlbums(json: data)
-            for i in 0..<albumsTable.count {
-                if albumsTable[i].userID == selectedUserId {
-                    selectedAlbums.append(albumsTable[i])
-                }
-            }
-            fetchPhotosUsing(url: photosUrl)
-            DispatchQueue.main.async {
-                photosView.tblView.reloadData()
-            }
-        }
-    }
-    
-    fileprivate func fetchPhotosUsing(url: URL?) {
-        guard let url = url else {return}
-        DispatchQueue.global(qos: .background).async { [self] in
-            let data = self.dataFetcher.getDataFrom(url: url)
-            photosTable = self.dataFetcher.parsePhotos(json: data)
-            for i in 0..<photosTable.count {
-                for j in 0..<selectedAlbums.count {
-                    if photosTable[i].albumID == selectedAlbums[j].id {
-                        selectedPhotos.append(photosTable[i])
-                    }
-                }
-            }
-            cellData = getImages()
-            print(cellData.count)
-            DispatchQueue.main.async {
-                photosView.tblView.reloadData()
-            }
-        }
-    }
-    
-    fileprivate func getImages() -> [PhotosCellModel] {
-        var arrayOfImages : [PhotosCellModel] = []
-        for photo in selectedPhotos {
-            if let photoURL = URL(string: "\(photo.url)") {
-                if let data = try? Data(contentsOf: photoURL ) {
-                    if let image = UIImage(data: data) {
-                        let dataToAdd = PhotosCellModel(image: image, description: photo.title)
-                        arrayOfImages.append(dataToAdd)
+    //Тут оставить только загрузку описания
+    func loadData(using albumsUrl: URL?, andPhotosWith photosUrl: URL?) {
+        if let url = albumsUrl {
+            DispatchQueue.global(qos: .background).async { [self] in
+                let data = self.dataFetcher.getDataFrom(url: url)
+                let albumsTable = self.dataFetcher.parseAlbums(json: data)
+                for i in 0..<albumsTable.count {
+                    if albumsTable[i].userID == selectedUserId {
+                        selectedUserAlbums.append(albumsTable[i])
                     }
                 }
             }
         }
-        return arrayOfImages
+        if let url = photosUrl {
+            DispatchQueue.global(qos: .background).async { [self] in
+                let data = self.dataFetcher.getDataFrom(url: url)
+                let photosTable = self.dataFetcher.parsePhotos(json: data)
+                for i in 0..<selectedUserAlbums.count {
+                    for j in photosTable {
+                        if selectedUserAlbums[i].id == j.albumID {
+                            selectedUserPhotos.append(j)
+                        }
+                    }
+                }
+                DispatchQueue.global(qos: .background).async { [self] in
+                    for k in 0..<selectedUserPhotos.count {
+                        let dataToAdd = PhotosCellModel(image: UIImage(), description: selectedUserPhotos[k].title)
+                        cellData.append(dataToAdd)
+                    }
+                    DispatchQueue.main.async {
+                        photosView.tblView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    //Просто загрузить картинку по индекс пасу и отдать ее в дата сорс и оттуда его вызывать.
+    func getImageFor(index: Int, from userPhotos: PhotosModel) -> UIImage {
+        var imageToReturn : UIImage = UIImage()
+        if let photoURL = URL(string: "\(userPhotos[index].url)") {
+            if let data = try? Data(contentsOf: photoURL ) {
+                if let image = UIImage(data: data) {
+                    imageToReturn = image
+                }
+            }
+        }
+        return imageToReturn
     }
     
     @objc func popVC() {

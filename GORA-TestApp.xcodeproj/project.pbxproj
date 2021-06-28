@@ -11,7 +11,6 @@
 		1B39908126876FEC0022C202 /* AlbumsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B39908026876FEC0022C202 /* AlbumsModel.swift */; };
 		1BC5CA9A268897D90062D48E /* PhotosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5CA99268897D90062D48E /* PhotosModel.swift */; };
 		1BC5CAAB2688B6840062D48E /* PhotosDelegate+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5CAAA2688B6840062D48E /* PhotosDelegate+DataSource.swift */; };
-		1BC5CAAE2688B7680062D48E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5CAAD2688B7680062D48E /* Extensions.swift */; };
 		1BC5CAB42688B95C0062D48E /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5CAB32688B95C0062D48E /* CustomLabel.swift */; };
 		1BC5CAB72688BDCA0062D48E /* PhotosCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5CAB62688BDCA0062D48E /* PhotosCellModel.swift */; };
 		1BE268FB2683A2CA00144192 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE268FA2683A2CA00144192 /* AppDelegate.swift */; };
@@ -33,7 +32,6 @@
 		1B39908026876FEC0022C202 /* AlbumsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsModel.swift; sourceTree = "<group>"; };
 		1BC5CA99268897D90062D48E /* PhotosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosModel.swift; sourceTree = "<group>"; };
 		1BC5CAAA2688B6840062D48E /* PhotosDelegate+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotosDelegate+DataSource.swift"; sourceTree = "<group>"; };
-		1BC5CAAD2688B7680062D48E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1BC5CAB32688B95C0062D48E /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		1BC5CAB62688BDCA0062D48E /* PhotosCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCellModel.swift; sourceTree = "<group>"; };
 		1BE268F72683A2CA00144192 /* GORA-TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GORA-TestApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,14 +114,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		1BC5CAB02688B77A0062D48E /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				1BC5CAAD2688B7680062D48E /* Extensions.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		1BE268EE2683A2CA00144192 = {
 			isa = PBXGroup;
 			children = (
@@ -149,7 +139,6 @@
 				1BE2692326848B6700144192 /* Photos */,
 				1BE269292684959B00144192 /* Services */,
 				1BE269172683A5A400144192 /* Views */,
-				1BC5CAB02688B77A0062D48E /* Extensions */,
 				1BE269032683A2CB00144192 /* Assets.xcassets */,
 				1BE269082683A2CB00144192 /* Info.plist */,
 			);
@@ -287,7 +276,6 @@
 				1BE2692C268498F900144192 /* UserModel.swift in Sources */,
 				1BC5CAAB2688B6840062D48E /* PhotosDelegate+DataSource.swift in Sources */,
 				1BC5CAB72688BDCA0062D48E /* PhotosCellModel.swift in Sources */,
-				1BC5CAAE2688B7680062D48E /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
