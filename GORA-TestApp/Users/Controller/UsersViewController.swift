@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UsersViewController: UIViewController {
+final class UsersViewController: UIViewController {
     
     let usersView = UsersView()
     
@@ -32,7 +32,7 @@ class UsersViewController: UIViewController {
         fetchDataUsing(url: usersUrl)
     }
     
-    func fetchDataUsing(url: URL?) {
+    fileprivate func fetchDataUsing(url: URL?) {
         guard let url = url else {return}
         DispatchQueue.global(qos: .background).async { [self] in
             let data = self.dataFetcher.getDataFrom(url: url)
@@ -57,10 +57,10 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let customCell = usersView.tblView.dequeueReusableCell(withIdentifier: "cell")
-        customCell?.accessoryType = .disclosureIndicator
-        customCell?.textLabel?.text = "\(usersTable[indexPath.row].name)"
-        return customCell!
+        let usernameCell = usersView.tblView.dequeueReusableCell(withIdentifier: "cell")
+        usernameCell?.accessoryType = .disclosureIndicator
+        usernameCell?.textLabel?.text = "\(usersTable[indexPath.row].name)"
+        return usernameCell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

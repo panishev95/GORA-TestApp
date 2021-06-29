@@ -50,7 +50,6 @@ class PhotosViewController: UIViewController {
         loadData(using: albumsUrl, andPhotosWith: photosUrl)
     }
     
-    //Тут оставить только загрузку описания
     func loadData(using albumsUrl: URL?, andPhotosWith photosUrl: URL?) {
         if let url = albumsUrl {
             DispatchQueue.global(qos: .background).async { [self] in
@@ -87,7 +86,6 @@ class PhotosViewController: UIViewController {
         }
     }
     
-    //Просто загрузить картинку по индекс пасу и отдать ее в дата сорс и оттуда его вызывать.
     func getImageFor(index: Int, from userPhotos: PhotosModel) -> UIImage {
         var imageToReturn : UIImage = UIImage()
         if let photoURL = URL(string: "\(userPhotos[index].url)") {
