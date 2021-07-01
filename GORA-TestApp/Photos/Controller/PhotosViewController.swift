@@ -78,6 +78,9 @@ class PhotosViewController: UIViewController {
                         let dataToAdd = PhotosCellModel(image: UIImage(), description: selectedUserPhotos[k].title)
                         cellData.append(dataToAdd)
                     }
+                    for k in 0..<3 {
+                        setImageForCellData(using: k)
+                    }
                     DispatchQueue.main.async {
                         photosView.tblView.reloadData()
                     }
@@ -96,6 +99,16 @@ class PhotosViewController: UIViewController {
             }
         }
         return imageToReturn
+    }
+    
+    func setImageForCellData(using ind: Int) {
+        DispatchQueue.global(qos: .background).async { [self] in
+            cellData[ind].image = getImageFor(index: ind, from: selectedUserPhotos)
+            DispatchQueue.main.async {
+                photosView.tblView.reloadData()
+            }
+        }
+        
     }
     
     @objc func popVC() {

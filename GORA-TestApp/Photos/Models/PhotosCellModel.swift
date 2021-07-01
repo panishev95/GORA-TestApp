@@ -8,6 +8,6 @@
 import UIKit
 
 struct PhotosCellModel {
-    var image : UIImage = UIImage()
+    var image : UIImage? = UIImage()
     var description : String = ""
 }
